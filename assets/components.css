@@ -1,0 +1,113 @@
+.datetime {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 10px;
+    border: black;
+    border-style: dashed;
+    align-items: center;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 10px;
+    border: black;
+    border-style: dashed;
+    align-items: center;
+}
+
+.picker-date {
+    width: 90%;
+    margin: auto;
+}
+
+.picker-time {
+    width: 65%;
+    margin: auto;
+}
+
+.picker-task {
+    width: 65%;
+    margin: auto;
+}
+
+.picker-dpid {
+    width: 65%;
+    margin: auto;
+}
+
+/* Setings Plot Raw */
+.raw-type-radio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    color: black;
+}
+
+.raw-range-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    color: black;
+}
+
+.raw-colorscale-textbox {
+    width: 60%;
+    margin-left: 20%;
+    text-align: center;
+}
+
+.raw-scale-radio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    color: black;
+}
+
+.raw-2d-options {
+    border: black;
+    border-style: dashed;
+    align-items: center;
+}
+
+/* Setings Plot inv */
+.inv-type-radio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    color: black;
+}
+
+.inv-range-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    color: black;
+}
+
+.inv-colorscale-textbox {
+    width: 60%;
+    margin-left: 20%;
+    text-align: center;
+}
+
+.inv-scale-radio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    color: black;
+}
+
+.inv-2d-options {
+    border: black;
+    border-style: dashed;
+    align-items: center;
+}

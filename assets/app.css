@@ -1,0 +1,110 @@
+html {
+    background-color: rgb(45, 3, 85);
+}
+
+.head {
+    background-color: rgb(45, 3, 85);
+    width: 100%;
+    height: 4%;
+    border: black;
+    border-style: dashed;
+}
+
+h1 {
+    color: black;
+}
+
+h3 {
+    color: black;
+}
+
+.hr-background {
+    background-color: rgb(68, 5, 168);
+}
+
+.app {
+    background-color: rgb(68, 5, 168);
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+
+.app-name {
+    background-color: rgb(68, 5, 168);
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    width: 40%;
+    height: 98%;
+}
+
+.main {
+    background-color: rgb(45, 3, 85);
+    border: black;
+    border-style: dashed;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 20px;
+    width: 100%;
+    height: 94%;
+}
+
+.settings {
+    background-color: rgb(68, 5, 168);
+    grid-row: 1 / 3;
+    border: black;
+    border-style: dashed;
+    margin: 10px 0px 10px 10px;
+    width: 98%;
+    height: 98%;
+
+}
+
+.raw {
+    background-color: rgb(68, 5, 168);
+    border: black;
+    border-style: dashed;
+    margin: 10px 10px 5px 5px;
+    width: 98%;
+    height: 97%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.inv {
+    background-color: rgb(68, 5, 168);
+    border: black;
+    border-style: dashed;
+    margin: 5px 10px 10px 5px;
+    width: 98%;
+    height: 97%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.raw-2d {
+    border: black;
+    border-style: dashed;
+    margin: 10px 20px 10px 20px;
+}
+
+.raw-1d {
+    border: black;
+    border-style: dashed;
+    margin: 10px 20px 10px 0px;
+}
+
+.inv-2d {
+    border: black;
+    border-style: dashed;
+    margin: 10px 20px 10px 20px;
+}
+
+.inv-1d {
+    border: black;
+    border-style: dashed;
+    margin: 10px 20px 10px 0px;
+}

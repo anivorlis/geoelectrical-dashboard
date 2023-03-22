@@ -1,0 +1,8 @@
+# authentication tokens
+assets/auth.json
+
+# data
+/data
+
+# pyc
+*.pyc
