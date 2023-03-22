@@ -18,7 +18,7 @@ jet_colorscale = [
 ]
 
 def render(app: Dash, data: AppData) -> html.Div:
-    
+
     # Raw Time-Series
     @app.callback(
         Output(component_id="raw-series", component_property="figure"),
@@ -43,7 +43,7 @@ def render(app: Dash, data: AppData) -> html.Div:
             )
         )
         return fig
-    
+
     # Raw Pseudo-Section
     @app.callback(
         Output(component_id="pseudo-section", component_property="figure"),
@@ -68,10 +68,10 @@ def render(app: Dash, data: AppData) -> html.Div:
         else:
             c = local_data.charg
         if type_of_scale == 'log':
-            c = np.log10(c)        
+            c = np.log10(c)
         fig = go.Figure(data =
-            go.Contour(x = local_data.fx, y=local_data.fz, z=c, 
-                       colorscale=jet_colorscale, 
+            go.Contour(x = local_data.fx, y=-local_data.fz, z=c, 
+                       colorscale=jet_colorscale,
                        colorbar=dict(
                             orientation='h',
                             x=0.5,
@@ -90,7 +90,7 @@ def render(app: Dash, data: AppData) -> html.Div:
                     html.H1("Pseudo-section"),
                     dcc.Graph(id='pseudo-section')
                 ], className="raw-2d"
-            ), 
+            ),
             html.Div(
                 [
                     html.H1("Time-Series"),
