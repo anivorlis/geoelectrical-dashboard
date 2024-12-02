@@ -6,3 +6,9 @@ assets/auth.json
 
 # pyc
 *.pyc
+
+# ruff & uv
+.ruff_cache/
+.venv/
+.python-version
+uv.lock
