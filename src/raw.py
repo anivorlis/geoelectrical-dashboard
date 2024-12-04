@@ -1,11 +1,8 @@
 import numpy as np
-from dash import Dash, dcc, html, Input, Output, State
-
-import plotly.express as px
 import plotly.graph_objects as go
+from dash import Dash, Input, Output, State, dcc, html
 
 from src.data_handler import AppData
-
 
 # Jet-like colorscale
 jet_colorscale = [

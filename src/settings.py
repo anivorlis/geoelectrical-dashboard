@@ -1,13 +1,14 @@
-import datetime 
+import datetime
 from collections import defaultdict
+from typing import Generator
 
 import numpy as np
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, Input, Output, dcc, html
 
 from src.data_handler import AppData
 
 
-def get_dropbox_options(values: list[str]) -> list[dict[str, str]]:
+def get_dropbox_options(values: np.ndarray|list[str]) -> list[dict[str, str]]:
     return [ {"label": value, "value": value} for value in values]
 
 def string_to_date(string: str) -> datetime.date:
@@ -19,7 +20,7 @@ def date_to_string(date: datetime.date) -> str:
     return f"{date.year}-{date.month:02}-{date.day:02}"
 
 def find_missing_days(dates: list[str], start_date: datetime.date, end_date: datetime.date) -> list[datetime.date]:
-    def daterange(start_date: datetime.date, end_date: datetime.date) -> datetime.date:
+    def daterange(start_date: datetime.date, end_date: datetime.date) -> Generator[datetime.date, None, None]:
         for n in range(int((end_date - start_date).days)):
             yield start_date + datetime.timedelta(n)
     dates_set = set([string_to_date(date) for date in dates])
@@ -36,8 +37,9 @@ def render(app: Dash, data: AppData) -> html.Div:
         Input(component_id="picker-date", component_property="date")
     )
     def update_times(date: str) -> tuple[list[str], str]:
-        values = get_dropbox_options(times_for_date[date])
-        return values, values[-1]["value"]
+        options = get_dropbox_options(times_for_date[date])
+        values = [option["value"] for option in options]
+        return values, values[-1]
 
     # Update DPID from Task
     @app.callback(
@@ -46,9 +48,10 @@ def render(app: Dash, data: AppData) -> html.Div:
         Input(component_id="picker-task", component_property="value")
     )
     def update_dpid(task_id: str) -> tuple[list[str], str]:
-        local_dpid = data.raw.dpid[data.raw.tid==task_id]
-        values = get_dropbox_options(np.sort(local_dpid.unique()))
-        return values, values[0]["value"]
+        local_dpid = data.raw.dpid[data.raw.tid == task_id]
+        options = get_dropbox_options(np.sort(local_dpid.unique()))
+        values = [option["value"] for option in options]
+        return values, values[0]
     
 
     dpids = np.sort(data.raw.dpid.unique())
@@ -65,20 +68,20 @@ def render(app: Dash, data: AppData) -> html.Div:
     dates = sorted(list(dates))
 
     # Calendar
-    MIN_DATE = string_to_date(dates[0])
-    MAX_DATE = string_to_date(dates[-1])
-    MISSING_DATES = find_missing_days(dates, MIN_DATE, MAX_DATE)
-    DEFAULT_DATE = MAX_DATE
+    min_date = string_to_date(dates[0])
+    max_date = string_to_date(dates[-1])
+    missing_dates = find_missing_days(dates, min_date, max_date)
+    default_date = max_date
 
     # dropbox time
-    DROPBOX_TIME_OPTIONS = get_dropbox_options(times_for_date[date_to_string(DEFAULT_DATE)])
-    DROPBOX_TIME_VALUE = DROPBOX_TIME_OPTIONS[0]["value"]
+    dropbox_time_options = get_dropbox_options(times_for_date[date_to_string(default_date)])
+    dropbox_time_value = dropbox_time_options[0]["value"]
     # dropbox task
-    DROPBOX_TASK_OPTIONS = get_dropbox_options(task_ids)
-    DROPBOX_TASK_VALUE = DROPBOX_TASK_OPTIONS[0]["value"]
+    dropbox_task_options = get_dropbox_options(task_ids)
+    dropbox_task_value = dropbox_task_options[0]["value"]
     # dropbox dpid
-    DROPBOX_DPID_OPTIONS = get_dropbox_options(dpids)
-    DROPBOX_DPID_VALUE = DROPBOX_DPID_OPTIONS[0]["value"]
+    dropbox_dpid_options = get_dropbox_options(dpids)
+    dropbox_dpid_value = dropbox_dpid_options[0]["value"]
 
     return html.Div(
         [
@@ -88,17 +91,17 @@ def render(app: Dash, data: AppData) -> html.Div:
                     html.H3("Date"),
                     dcc.DatePickerSingle(
                         id='picker-date',
-                        min_date_allowed=MIN_DATE,
-                        max_date_allowed=MAX_DATE,
-                        date=MAX_DATE,
-                        disabled_days=MISSING_DATES,
+                        min_date_allowed=min_date,
+                        max_date_allowed=max_date,
+                        date=max_date,
+                        disabled_days=missing_dates,
                         display_format="YYYY-MM-DD",
                         className="picker-date"
                     ),
                     html.H3("Time"),
                     dcc.Dropdown(id='picker-time',
-                        options=DROPBOX_TIME_OPTIONS,
-                        value=DROPBOX_TIME_VALUE,
+                        options=dropbox_time_options,
+                        value=dropbox_time_value,
                         clearable=False,
                         className="picker-time"),
                 ], className="datetime"
@@ -108,14 +111,14 @@ def render(app: Dash, data: AppData) -> html.Div:
                 [
                     html.H3("Task"),
                     dcc.Dropdown(id='picker-task',
-                        options=DROPBOX_TASK_OPTIONS,
-                        value=DROPBOX_TASK_VALUE,
+                        options=dropbox_task_options,
+                        value=dropbox_task_value,
                         clearable=False,
                         className="picker-task"),
                     html.H3("DPID"),
                     dcc.Dropdown(id='picker-dpid',
-                        options=DROPBOX_DPID_OPTIONS,
-                        value=DROPBOX_DPID_VALUE,
+                        options=dropbox_dpid_options,
+                        value=dropbox_dpid_value,
                         clearable=False,
                         className="picker-dpid")
                 ], className="task"

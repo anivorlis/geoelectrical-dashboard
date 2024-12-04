@@ -1,15 +1,9 @@
 import json
 
-import pandas as pd
-import numpy as np
-
-import plotly.express as px
-import plotly.graph_objects as go
-
-from dash import Dash
 import dash_auth
+from dash import Dash
 
-from assets.config import EXTERNAL_STYLESHEET, APP_TITLE
+from assets.config import APP_TITLE, EXTERNAL_STYLESHEET
 from src.create_layout import create_layout
 from src.data_handler import read_data
 

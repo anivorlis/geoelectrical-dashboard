@@ -1,12 +1,8 @@
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, html
 
+from src import inverted, raw, settings
 from src.data_handler import AppData
 
-from src import (
-    settings, 
-    raw, 
-    inverted
-)
 
 def create_layout(app: Dash, data: AppData) -> html.Div:
     return html.Div(

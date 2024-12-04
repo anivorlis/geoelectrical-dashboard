@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class AppData():
 
     filename_raw: str = "data/data_raw.csv"
